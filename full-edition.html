@@ -271,6 +271,10 @@
       <h4>Does my data ever leave my Snowflake account?</h4>
       <p>Never. Full Edition runs on the same privacy model as the trial — reads only <code>SNOWFLAKE.ACCOUNT_USAGE</code>, no outbound network calls.</p>
     </div>
+    <div class="faq-item">
+      <h4>Will it work on a large account with a 90-day window?</h4>
+      <p>Yes. All scanning and aggregation run inside Snowflake; the app only loads compact results. Each detector shows its <strong>top 200 findings by severity</strong>, query text is truncated, and a warehouse-scope selector lets you focus on one warehouse — so it stays fast and well within Streamlit-in-Snowflake's memory limits even on large accounts.</p>
+    </div>
   </div>
 </section>
 
