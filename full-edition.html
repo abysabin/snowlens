@@ -238,12 +238,12 @@
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
-          <h3>Install in Snowflake</h3>
-          <p>The download is a Snowflake Native App package (<code>manifest.yml</code> + <code>setup_script.sql</code> + the Streamlit app). Add it as an application in Snowsight, grant the one required privilege, and run detection. Full step-by-step is in the included <code>README.md</code>.</p>
+          <h3>Run the setup scripts in Snowsight</h3>
+          <p>Same simple 3-step install as the trial — as <strong>ACCOUNTADMIN</strong> run the setup script, upload the two app files to the stage, then create the Streamlit app. Full step-by-step is in the included <code>README.md</code>.</p>
           <div class="code-block">
-            1. Add the package as an application in Snowsight<br>
-            2. Grant IMPORTED PRIVILEGES ON SNOWFLAKE DB to the app<br>
-            3. CALL CORE.RUN_ANOMALY_DETECTION(); → open the app's Streamlit
+            1. Run sql/01_setup.sql (as ACCOUNTADMIN)<br>
+            2. Upload streamlit_app.py + environment.yml to the stage<br>
+            3. Run sql/02_create_app.sql → open the app in Snowsight
           </div>
         </div>
       </div>
@@ -265,7 +265,7 @@
     </div>
     <div class="faq-item">
       <h4>Do I need to uninstall the trial first?</h4>
-      <p>No — the Full Edition installs as its own application, separate from the trial. You can run both, or remove the trial anytime with its uninstall script.</p>
+      <p>No — the Full Edition installs into its own <code>SNOWLENS_FULL</code> database, warehouse, and role, separate from the trial. You can run both side by side, or remove either one anytime with its <code>sql/99_uninstall.sql</code> script.</p>
     </div>
     <div class="faq-item">
       <h4>Does my data ever leave my Snowflake account?</h4>
