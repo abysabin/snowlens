@@ -57,14 +57,16 @@
 <div class="card">
   <div class="check">✓</div>
   <h1>Payment received — thank you!</h1>
-  <p>We've sent your SnowLens Full Edition download link and setup instructions to the email
-     you used at checkout. It usually arrives within a few minutes — check spam if you don't see it.</p>
+  <p>Your SnowLens Full Edition download is ready below.</p>
 
   <div class="payment-id" id="paymentIdBox">Payment reference: <span id="paymentId">—</span></div>
 
-  <!-- TODO: replace with the real Full Edition ZIP direct-download link once it's ready and hosted -->
-  <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=REPLACE_WITH_FULL_EDITION_FILE_ID" target="_blank" rel="noopener">
-    ↓ Download now (backup link)
+  <!-- TODO: once the verified-download endpoint is deployed, point this at it, e.g.
+       https://snowlens-download.<you>.workers.dev/?razorpay_payment_id=...&razorpay_signature=...
+       (params are forwarded automatically by the script below). Until then this falls back
+       to a direct link — see DOWNLOAD_URL below. -->
+  <a class="btn-primary" id="downloadBtn" href="#" target="_blank" rel="noopener">
+    ↓ Download Full Edition
   </a>
 
   <div>
@@ -72,7 +74,7 @@
   </div>
 
   <div class="note">
-    Trouble finding your email or the download doesn't work? Email
+    Having trouble, or the download link doesn't work? Email
     <a href="mailto:vizcanvas@gmail.com" style="color:var(--ice)">vizcanvas@gmail.com</a>
     with the payment reference above and we'll sort it out directly.
   </div>
@@ -80,12 +82,37 @@
 
 <script>
   (function () {
+    // TODO: set this to your deployed verification-worker URL once it exists,
+    // e.g. 'https://snowlens-download.<you>.workers.dev/'
+    var VERIFY_ENDPOINT = 'https://snowlens-download.YOUR-SUBDOMAIN.workers.dev/';
+
     var params = new URLSearchParams(window.location.search);
     var paymentId = params.get('razorpay_payment_id');
+
     if (paymentId) {
       document.getElementById('paymentId').textContent = paymentId;
     } else {
       document.getElementById('paymentIdBox').style.display = 'none';
+    }
+
+    // Forward every razorpay_* query param Razorpay appended to this page
+    // straight through to the verification worker, so it can check the
+    // signature before releasing the file.
+    var forwardParams = new URLSearchParams();
+    params.forEach(function (value, key) {
+      if (key.indexOf('razorpay_') === 0) forwardParams.append(key, value);
+    });
+
+    var downloadBtn = document.getElementById('downloadBtn');
+    if ([...forwardParams].length > 0) {
+      downloadBtn.href = VERIFY_ENDPOINT + '?' + forwardParams.toString();
+    } else {
+      // No payment params present (e.g. someone opened this page directly) —
+      // disable the button rather than exposing any file.
+      downloadBtn.href = '#';
+      downloadBtn.textContent = 'Download unavailable — check your payment link';
+      downloadBtn.style.opacity = '0.5';
+      downloadBtn.style.pointerEvents = 'none';
     }
   })();
 </script>
