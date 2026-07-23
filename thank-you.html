@@ -50,6 +50,12 @@
   }
   .btn-ghost:hover { color: var(--ice); }
   .note { font-size: 12px; color: var(--text-dim); margin-top: 22px; border-top: 1px solid var(--border); padding-top: 16px; }
+  .warn-box {
+    background: rgba(245,166,35,0.10); border: 1px solid rgba(245,166,35,0.45);
+    border-radius: 10px; padding: 12px 16px; margin: 4px 0 18px;
+    font-size: 13px; color: #F5C877; line-height: 1.5; text-align: left;
+  }
+  .warn-box strong { color: #F5A623; }
 </style>
 </head>
 <body>
@@ -61,10 +67,11 @@
 
   <div class="payment-id" id="paymentIdBox">Payment reference: <span id="paymentId">—</span></div>
 
-  <!-- TODO: once the verified-download endpoint is deployed, point this at it, e.g.
-       https://snowlens-download.<you>.workers.dev/?razorpay_payment_id=...&razorpay_signature=...
-       (params are forwarded automatically by the script below). Until then this falls back
-       to a direct link — see DOWNLOAD_URL below. -->
+  <div class="warn-box" id="warnBox">
+    ⚠️ Please <strong>keep this page open</strong> until your download finishes.
+    This is your one-time access link — don't close the tab until the ZIP has saved.
+  </div>
+
   <a class="btn-primary" id="downloadBtn" href="#" target="_blank" rel="noopener">
     ↓ Download Full Edition
   </a>
@@ -103,8 +110,32 @@
     });
 
     var downloadBtn = document.getElementById('downloadBtn');
+    var warnBox = document.getElementById('warnBox');
+
     if ([...forwardParams].length > 0) {
       downloadBtn.href = VERIFY_ENDPOINT + '?' + forwardParams.toString();
+
+      // Warn the buyer if they try to leave before the download has had time to
+      // start/finish. Armed as soon as they click Download, auto-disarmed after
+      // a short window so it doesn't nag them forever.
+      var downloadStarted = false;
+      function beforeUnloadHandler(e) {
+        e.preventDefault();
+        e.returnValue = '';   // triggers the browser's "Leave site?" prompt
+        return '';
+      }
+
+      downloadBtn.addEventListener('click', function () {
+        downloadStarted = true;
+        warnBox.innerHTML =
+          '⬇️ <strong>Your download is starting…</strong> keep this tab open until the ' +
+          'ZIP has finished saving. Once it’s saved, you can safely close this page.';
+        window.addEventListener('beforeunload', beforeUnloadHandler);
+        // Disarm after 90s — long enough for a few-MB ZIP on a slow connection.
+        setTimeout(function () {
+          window.removeEventListener('beforeunload', beforeUnloadHandler);
+        }, 90000);
+      });
     } else {
       // No payment params present (e.g. someone opened this page directly) —
       // disable the button rather than exposing any file.
@@ -112,6 +143,7 @@
       downloadBtn.textContent = 'Download unavailable — check your payment link';
       downloadBtn.style.opacity = '0.5';
       downloadBtn.style.pointerEvents = 'none';
+      warnBox.style.display = 'none';
     }
   })();
 </script>
