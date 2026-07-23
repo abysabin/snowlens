@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SnowLens Full Edition — ₹4,999 one-time | VizCanvaz</title>
-<meta name="description" content="SnowLens Full Edition — all 8 detectors, longer data windows, Slack/email alerts, and cost attribution by workload. ₹4,999 one-time, runs entirely inside your Snowflake account.">
+<meta name="description" content="SnowLens Full Edition — all 8 detectors, longer data windows, and cost attribution by workload. ₹4,999 one-time, runs entirely inside your Snowflake account.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -169,7 +169,7 @@
 <div class="hero">
   <div class="hero-eyebrow">SnowLens Full Edition</div>
   <h1>All 8 detectors. Longer history. Priority support.</h1>
-  <p>Everything in the free trial, plus 6 more detection rules, 30/90-day windows, Slack/email alerts, and cost attribution by workload — still runs entirely inside your own Snowflake account.</p>
+  <p>Everything in the free trial, plus 6 more detection rules, 30/90-day windows, and cost attribution by workload — still runs entirely inside your own Snowflake account.</p>
 
   <div class="price-box">
     <div class="price-amount" id="priceAmount">₹4,999</div>
@@ -210,7 +210,7 @@
       <div class="feature-card"><div class="f-icon">👤</div><h4>Workload / Role Cost Spike</h4><p>Cost outliers by tag or role, &gt;2σ.</p></div>
       <div class="feature-card"><div class="f-icon">🏷️</div><h4>Cost Attribution by Workload</h4><p>dbt-optional universal tagging.</p></div>
       <div class="feature-card"><div class="f-icon">📅</div><h4>30 / 90-day windows</h4><p>vs the trial's 6h / 7-day limits.</p></div>
-      <div class="feature-card"><div class="f-icon">🔔</div><h4>Slack / email alerts</h4><p>Get notified the moment something spikes.</p></div>
+      <div class="feature-card"><div class="f-icon">⚙️</div><h4>Configurable detection window</h4><p>Tune the lookback per detector in-app.</p></div>
       <div class="feature-card"><div class="f-icon">🎧</div><h4>Priority email support</h4><p>Direct line to vizcanvas@gmail.com.</p></div>
     </div>
   </div>
@@ -238,12 +238,12 @@
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
-          <h3>Run the setup scripts in Snowsight</h3>
-          <p>Same proven 3-step install as the trial — as ACCOUNTADMIN, run the setup script, upload the app files to the stage, then create the Streamlit app.</p>
+          <h3>Install in Snowflake</h3>
+          <p>The download is a Snowflake Native App package (<code>manifest.yml</code> + <code>setup_script.sql</code> + the Streamlit app). Add it as an application in Snowsight, grant the one required privilege, and run detection. Full step-by-step is in the included <code>README.md</code>.</p>
           <div class="code-block">
-            1. Run sql/01_setup.sql<br>
-            2. Upload streamlit_app.py + environment.yml to the stage<br>
-            3. Run sql/02_create_app.sql → open the app in Snowsight
+            1. Add the package as an application in Snowsight<br>
+            2. Grant IMPORTED PRIVILEGES ON SNOWFLAKE DB to the app<br>
+            3. CALL CORE.RUN_ANOMALY_DETECTION(); → open the app's Streamlit
           </div>
         </div>
       </div>
@@ -265,7 +265,7 @@
     </div>
     <div class="faq-item">
       <h4>Do I need to uninstall the trial first?</h4>
-      <p>No — the Full Edition installs into its own database and role, separate from the trial. You can run both, or uninstall the trial with <code>sql/99_uninstall.sql</code> whenever you like.</p>
+      <p>No — the Full Edition installs as its own application, separate from the trial. You can run both, or remove the trial anytime with its uninstall script.</p>
     </div>
     <div class="faq-item">
       <h4>Does my data ever leave my Snowflake account?</h4>
