@@ -148,15 +148,26 @@
   <p>Everything in the free trial, plus 6 more detection rules, 30/90-day windows, Slack/email alerts, and cost attribution by workload — still runs entirely inside your own Snowflake account.</p>
 
   <div class="price-box">
-    <div class="price-amount">₹4,999</div>
-    <div class="price-note">One-time payment · lifetime license · billed in INR</div>
+    <div class="price-amount" id="priceAmount">₹4,999</div>
+    <div class="price-note" id="priceNote">One-time payment · lifetime license · billed in INR</div>
   </div>
   <br>
-  <div style="display:flex;justify-content:center;">
+
+  <!-- India price button (₹4,999) -->
+  <div id="btnIndia" style="display:none;justify-content:center;">
     <form>
       <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_TGn7UrYTe2uCjR" async> </script>
     </form>
   </div>
+
+  <!-- International price button (₹7,999) — TODO: create this button in Razorpay
+       (Payment Buttons → new button, amount ₹7,999) and paste its ID below. -->
+  <div id="btnIntl" style="display:none;justify-content:center;">
+    <form>
+      <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_REPLACE_WITH_7999_BUTTON_ID" async> </script>
+    </form>
+  </div>
+
   <br>
   <a class="btn-ghost" href="https://snowlens.vizcanvaz.com">← Not ready yet? Try the free edition first</a>
 </div>
@@ -245,6 +256,53 @@
   <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a> ·
   <a href="terms.html">Terms</a>
 </footer>
+
+<!-- Geo-based INR pricing: ₹4,999 for India, ₹7,999 for everyone else.
+     Both are billed in INR. Note: for foreign-issued cards to actually go
+     through, International Payments must be enabled on the Razorpay account —
+     the currency being INR does not bypass that requirement. -->
+<script>
+  (function () {
+    var INTL_BUTTON_PLACEHOLDER = 'pl_REPLACE_WITH_7999_BUTTON_ID';
+
+    function showIndia() {
+      document.getElementById('priceAmount').textContent = '₹4,999';
+      document.getElementById('priceNote').textContent = 'One-time payment · lifetime license · billed in INR';
+      document.getElementById('btnIndia').style.display = 'flex';
+      document.getElementById('btnIntl').style.display = 'none';
+    }
+
+    function showIntl() {
+      // If the ₹7,999 button hasn't been created yet, fall back to the working
+      // India button so the page always has a functioning checkout.
+      var intlScript = document.querySelector('#btnIntl script');
+      var intlReady = intlScript &&
+        intlScript.getAttribute('data-payment_button_id') !== INTL_BUTTON_PLACEHOLDER;
+
+      if (!intlReady) { showIndia(); return; }
+
+      document.getElementById('priceAmount').textContent = '₹7,999';
+      document.getElementById('priceNote').textContent = 'One-time payment · lifetime license · billed in INR';
+      document.getElementById('btnIndia').style.display = 'none';
+      document.getElementById('btnIntl').style.display = 'flex';
+    }
+
+    // Default to India pricing immediately (safe, working button), then adjust
+    // once geo-lookup resolves.
+    showIndia();
+
+    fetch('https://ipapi.co/json/')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.country_code && data.country_code !== 'IN') {
+          showIntl();
+        } else {
+          showIndia();
+        }
+      })
+      .catch(function () { showIndia(); });
+  })();
+</script>
 
 </body>
 </html>
