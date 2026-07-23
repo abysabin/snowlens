@@ -96,8 +96,8 @@
     }
 
     // Forward every razorpay_* query param Razorpay appended to this page
-    // straight through to the verification worker, so it can check the
-    // signature before releasing the file.
+    // (razorpay_payment_id in particular) to the verification worker, which
+    // confirms the payment with Razorpay's API before releasing the file.
     var forwardParams = new URLSearchParams();
     params.forEach(function (value, key) {
       if (key.indexOf('razorpay_') === 0) forwardParams.append(key, value);
