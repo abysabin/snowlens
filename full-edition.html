@@ -130,6 +130,30 @@
     nav { padding: 0 16px; }
     section { padding: 44px 16px; }
   }
+
+  /* Coming-soon modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,22,40,0.75); backdrop-filter: blur(4px);
+    z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 34px; max-width: 400px; width: 100%; text-align: center; position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .modal-box .m-icon { font-size: 32px; margin-bottom: 12px; }
+  .modal-box h3 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 800;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .modal-box p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 20px; }
+  .modal-close {
+    position: absolute; top: 12px; right: 14px; background: none; border: none;
+    color: var(--text-dim); font-size: 19px; cursor: pointer; line-height: 1;
+  }
+  .modal-close:hover { color: var(--ice); }
 </style>
 </head>
 <body>
@@ -153,19 +177,18 @@
   </div>
   <br>
 
-  <!-- India price button (₹4,999) -->
+  <!-- India: live Razorpay button (₹4,999) -->
   <div id="btnIndia" style="display:none;justify-content:center;">
     <form>
-      <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_TGn7UrYTe2uCjR" async> </script>
+      <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_TGoMyM3FK3yHLI" async> </script>
     </form>
   </div>
 
-  <!-- International price button (₹7,999) — TODO: create this button in Razorpay
-       (Payment Buttons → new button, amount ₹7,999) and paste its ID below. -->
+  <!-- International ($99 USD): checkout not enabled yet — shows a "coming soon" popup.
+       Once Razorpay International is approved, replace this button with the live
+       USD payment button embed. -->
   <div id="btnIntl" style="display:none;justify-content:center;">
-    <form>
-      <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_REPLACE_WITH_7999_BUTTON_ID" async> </script>
-    </form>
+    <button class="btn-primary" onclick="showComingSoon(event)">Get Full Version →</button>
   </div>
 
   <br>
@@ -260,14 +283,24 @@
   <a href="shipping.html">Delivery</a>
 </footer>
 
-<!-- Geo-based INR pricing: ₹4,999 for India, ₹7,999 for everyone else.
-     Both are billed in INR. Note: for foreign-issued cards to actually go
-     through, International Payments must be enabled on the Razorpay account —
-     the currency being INR does not bypass that requirement. -->
+<!-- Coming-soon popup for international buyers -->
+<div class="modal-overlay" id="comingSoonModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeComingSoon()" aria-label="Close">✕</button>
+    <div class="m-icon">🌍</div>
+    <h3>International checkout — coming soon</h3>
+    <p>We're finalising international payments so buyers outside India can pay by card in USD.
+       It'll be live shortly. Email us and we'll notify you the moment it opens — or if you'd
+       like to buy right away, we can arrange it manually.</p>
+    <a class="btn-primary" href="mailto:vizcanvas@gmail.com?subject=SnowLens Full Edition — International ($99)" style="font-size:14px;padding:11px 22px;">Email vizcanvas@gmail.com</a>
+  </div>
+</div>
+
+<!-- Geo-based pricing: India sees ₹4,999 with a live Razorpay button; everyone
+     else sees $99 USD with a "coming soon" popup until International Payments is
+     approved on the Razorpay account. -->
 <script>
   (function () {
-    var INTL_BUTTON_PLACEHOLDER = 'pl_REPLACE_WITH_7999_BUTTON_ID';
-
     function showIndia() {
       document.getElementById('priceAmount').textContent = '₹4,999';
       document.getElementById('priceNote').textContent = 'One-time payment · lifetime license · billed in INR';
@@ -276,22 +309,14 @@
     }
 
     function showIntl() {
-      // If the ₹7,999 button hasn't been created yet, fall back to the working
-      // India button so the page always has a functioning checkout.
-      var intlScript = document.querySelector('#btnIntl script');
-      var intlReady = intlScript &&
-        intlScript.getAttribute('data-payment_button_id') !== INTL_BUTTON_PLACEHOLDER;
-
-      if (!intlReady) { showIndia(); return; }
-
-      document.getElementById('priceAmount').textContent = '₹7,999';
-      document.getElementById('priceNote').textContent = 'One-time payment · lifetime license · billed in INR';
+      document.getElementById('priceAmount').textContent = '$99';
+      document.getElementById('priceNote').textContent = 'One-time payment · lifetime license · billed in USD';
       document.getElementById('btnIndia').style.display = 'none';
       document.getElementById('btnIntl').style.display = 'flex';
     }
 
-    // Default to India pricing immediately (safe, working button), then adjust
-    // once geo-lookup resolves.
+    // Default to India pricing immediately (live button), then adjust once
+    // geo-lookup resolves.
     showIndia();
 
     fetch('https://ipapi.co/json/')
@@ -305,6 +330,23 @@
       })
       .catch(function () { showIndia(); });
   })();
+
+  function showComingSoon(e) {
+    if (e) e.preventDefault();
+    document.getElementById('comingSoonModal').classList.add('open');
+  }
+  function closeComingSoon() {
+    document.getElementById('comingSoonModal').classList.remove('open');
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.getElementById('comingSoonModal');
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeComingSoon();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeComingSoon();
+    });
+  });
 </script>
 
 </body>
