@@ -82,9 +82,8 @@
 
 <script>
   (function () {
-    // TODO: set this to your deployed verification-worker URL once it exists,
-    // e.g. 'https://snowlens-download.<you>.workers.dev/'
-    var VERIFY_ENDPOINT = 'https://snowlens-download.YOUR-SUBDOMAIN.workers.dev/';
+    // Deployed Cloudflare verification worker.
+    var VERIFY_ENDPOINT = 'https://snowlens-deploy.vizcanvas.workers.dev/';
 
     var params = new URLSearchParams(window.location.search);
     var paymentId = params.get('razorpay_payment_id');
