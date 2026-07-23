@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions | SnowLens — VizCanvaz</title>
+<meta name="description" content="Terms and Conditions for SnowLens, a Snowflake observability app by VizCanvaz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0A1628; --ice: #29ABE2; --ice-glow: rgba(41,171,226,0.15);
+    --white: #F8FAFF; --surface: #0D1B35; --border: rgba(41,171,226,0.18);
+    --text: #D6E8F5; --text-dim: #7EA8C4;
+  }
+  body {
+    background: var(--navy); color: var(--text); font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px; line-height: 1.7;
+  }
+  nav {
+    position: sticky; top: 0; z-index: 100; background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    padding: 0 5vw; display: flex; align-items: center; justify-content: space-between; height: 60px;
+  }
+  .nav-brand {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px;
+    color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 8px;
+  }
+  .nav-brand span { color: var(--ice); }
+  nav a.back { color: var(--text-dim); text-decoration: none; font-size: 14px; }
+  nav a.back:hover { color: var(--ice); }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 60px 5vw 100px; }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif; font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800; color: var(--white); margin-bottom: 8px;
+  }
+  .updated { font-size: 13px; color: var(--text-dim); margin-bottom: 40px; }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700;
+    color: var(--white); margin: 36px 0 12px;
+  }
+  p, li { color: var(--text-dim); margin-bottom: 12px; }
+  ul, ol { padding-left: 22px; margin-bottom: 12px; }
+  strong { color: var(--text); }
+  a { color: var(--ice); }
+  .box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; margin: 24px 0;
+  }
+  footer {
+    background: var(--navy); border-top: 1px solid var(--border); padding: 24px 5vw;
+    text-align: center; font-size: 13px; color: var(--text-dim);
+  }
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--ice); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="https://snowlens.vizcanvaz.com">❄️ Snow<span>Lens</span></a>
+  <a class="back" href="https://snowlens.vizcanvaz.com">← Back to SnowLens</a>
+</nav>
+
+<div class="wrap">
+  <h1>Terms & Conditions</h1>
+  <p class="updated">Last updated: July 2026</p>
+
+  <p>These Terms & Conditions ("Terms") govern your access to and use of SnowLens (the "Software"),
+     including the Trial Edition and the Full Edition, provided by <strong>VizCanvaz</strong>
+     ("VizCanvaz", "we", "us", "our"). By downloading, installing, or purchasing SnowLens, you
+     ("you", "the User") agree to be bound by these Terms. If you do not agree, do not use the
+     Software.</p>
+
+  <h2>1. The Product</h2>
+  <p>SnowLens is a Streamlit-in-Snowflake application that installs directly into a customer's own
+     Snowflake account and reads exclusively from Snowflake's built-in
+     <code>SNOWFLAKE.ACCOUNT_USAGE</code> schema to surface query performance and cost anomalies.
+     It is offered in two editions:</p>
+  <ul>
+    <li><strong>Trial Edition</strong> — free, unlimited in time, limited to 2 detection rules and
+        a 7-day (cost) / 6-hour (performance) data window.</li>
+    <li><strong>Full Edition</strong> — a paid, one-time-purchase license unlocking all 8 detection
+        rules, 30/90-day data windows, cost attribution by workload, Slack/email alerting, and
+        priority email support.</li>
+  </ul>
+
+  <h2>2. License Grant</h2>
+  <p>Subject to these Terms and, for the Full Edition, receipt of payment in full, VizCanvaz grants
+     you a limited, non-exclusive, non-transferable, revocable license to install and run SnowLens
+     inside a single Snowflake account owned or operated by you or your organisation, for your own
+     internal business use.</p>
+
+  <h2>3. Restrictions</h2>
+  <p>You may not:</p>
+  <ol>
+    <li>Redistribute, resell, sublicense, or share the Software, in whole or in part, with any
+        third party;</li>
+    <li>Modify data-window limits, feature toggles, or license checks in an attempt to unlock
+        functionality you have not paid for;</li>
+    <li>Remove or obscure any copyright, trademark, or attribution notice in the source files;</li>
+    <li>Use the Software to provide a competing service to third parties without a separate
+        written commercial agreement with VizCanvaz.</li>
+  </ol>
+
+  <h2>4. Pricing & Payment</h2>
+  <p>The Full Edition is offered as a <strong>one-time payment of ₹4,999 (INR)</strong> per
+     Snowflake account, billed and processed securely through our payment partner,
+     <strong>Razorpay</strong>. This is a one-time license fee, not a subscription — there are no
+     recurring or renewal charges for continued use of the version you purchased. Prices are
+     subject to change for future purchases; your existing license is unaffected by any
+     price change.</p>
+
+  <h2>5. Delivery</h2>
+  <p>Because SnowLens is delivered as downloadable source files (not a hosted service), access to
+     the Full Edition is provided by email, typically within a few minutes of successful payment,
+     to the email address supplied at checkout. If you do not receive this email within
+     24 hours, contact <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a> with your
+     Razorpay payment reference and we will resend it directly.</p>
+
+  <h2>6. Refunds & Cancellations</h2>
+  <div class="box">
+    <p style="margin-bottom:0">Since SnowLens is a one-time digital software license delivered
+       immediately by download/email, purchases are <strong>generally non-refundable</strong> once
+       access has been delivered. If you experience a genuine technical issue that prevents the
+       Software from working as described and we are unable to resolve it, contact us within
+       7 days of purchase at <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a> and we
+       will review the request in good faith on a case-by-case basis.</p>
+  </div>
+
+  <h2>7. Data & Privacy</h2>
+  <p>SnowLens runs entirely inside your own Snowflake account and reads only Snowflake's own
+     metadata views (<code>QUERY_HISTORY</code>, <code>WAREHOUSE_METERING_HISTORY</code>,
+     <code>QUERY_ATTRIBUTION_HISTORY</code>). It makes no outbound network calls from within your
+     Snowflake account, and VizCanvaz never receives, stores, or has visibility into your account
+     data. We only collect the billing information Razorpay shares with us to process your payment
+     and deliver your license (typically your name and email address).</p>
+
+  <h2>8. Intellectual Property</h2>
+  <p>SnowLens, including its source code, design, and documentation, is and remains the
+     intellectual property of VizCanvaz. These Terms grant you a license to use the Software; they
+     do not transfer ownership of any intellectual property to you.</p>
+
+  <h2>9. Disclaimer of Warranty</h2>
+  <p>The Software is provided "as is", without warranty of any kind, express or implied, including
+     but not limited to warranties of merchantability, fitness for a particular purpose, or
+     non-infringement. We do not guarantee that the Software will be error-free or uninterrupted.</p>
+
+  <h2>10. Limitation of Liability</h2>
+  <p>To the maximum extent permitted by law, VizCanvaz shall not be liable for any indirect,
+     incidental, special, or consequential damages — including but not limited to Snowflake
+     compute costs incurred while running the Software — arising from your use of SnowLens. Our
+     total liability for any claim relating to the Software shall not exceed the amount you paid
+     for your license.</p>
+
+  <h2>11. Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. Material changes will be reflected by updating
+     the "Last updated" date above. Continued use of the Software after changes are posted
+     constitutes acceptance of the revised Terms.</p>
+
+  <h2>12. Governing Law</h2>
+  <p>These Terms are governed by the laws of India. Any disputes arising from these Terms or your
+     use of the Software shall be subject to the exclusive jurisdiction of the courts of India.</p>
+
+  <h2>13. Contact</h2>
+  <p>Questions about these Terms, billing, or the Software can be sent to
+     <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a>.</p>
+</div>
+
+<footer>
+  © 2026 VizCanvaz · <a href="https://www.vizcanvaz.com">vizcanvaz.com</a> ·
+  <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a>
+</footer>
+
+</body>
+</html>
