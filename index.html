@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SnowLens — Snowflake Observability, Inside Your Account | VizCanvaz</title>
-<meta name="description" content="SnowLens is a Streamlit app that runs inside your own Snowflake account. Detect slow queries and cost anomalies — your data never leaves your environment.">
+<title>SnowLens — Free Snowflake Observability, Inside Your Account | VizCanvaz</title>
+<meta name="description" content="SnowLens is a free Streamlit app that runs inside your own Snowflake account. 9 detectors for slow queries, cost anomalies, spilling, queuing, and more — your data never leaves your environment.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -65,12 +65,12 @@
   }
   .nav-links a:hover { color: var(--ice); }
   .nav-cta {
-    background: var(--amber); color: var(--navy) !important;
+    background: var(--ice); color: var(--navy) !important;
     font-weight: 700 !important; font-size: 13px !important;
     padding: 8px 18px; border-radius: 6px;
     transition: background 0.2s !important;
   }
-  .nav-cta:hover { background: var(--amber-dim) !important; color: #fff !important; }
+  .nav-cta:hover { background: #3DBEF5 !important; }
 
   /* ── HERO ── */
   .hero {
@@ -195,7 +195,7 @@
     margin-bottom: 52px;
   }
 
-  /* ── FEATURE CARDS (trial) ── */
+  /* ── FEATURE CARDS ── */
   .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -281,10 +281,6 @@
   }
   .blocked-arrow .arr-label { color: var(--red-soft); }
   .blocked-arrow .arr-line { color: var(--red-soft); opacity: 0.5; }
-  .blocked-cross {
-    font-size: 18px; color: var(--red-soft);
-    font-weight: 700; text-align: center; margin-top: 4px;
-  }
 
   .privacy-points {
     display: grid;
@@ -352,79 +348,6 @@
   }
   .step-tip::before { content: '💡'; flex-shrink: 0; }
 
-  /* ── COMPARISON TABLE ── */
-  .compare-wrap {
-    background: var(--surface);
-    border: 1px solid var(--border); border-radius: 16px;
-    overflow: hidden;
-  }
-  .compare-header {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    border-bottom: 1px solid var(--border);
-  }
-  .col-feature { padding: 20px 24px; }
-  .col-trial, .col-full {
-    padding: 20px 24px; text-align: center;
-    border-left: 1px solid var(--border);
-  }
-  .col-full { background: rgba(41,171,226,0.05); }
-  .col-label {
-    font-family: var(--mono); font-size: 10px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .col-trial .col-label { color: var(--text-dim); }
-  .col-full .col-label { color: var(--ice); }
-  .col-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px; font-weight: 800; color: var(--white);
-  }
-  .col-price {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px; color: var(--text-dim);
-    margin-top: 2px;
-  }
-  .col-full .col-price { color: var(--amber); font-weight: 600; }
-
-  .compare-row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    border-bottom: 1px solid rgba(41,171,226,0.08);
-    transition: background 0.15s;
-  }
-  .compare-row:hover { background: rgba(41,171,226,0.03); }
-  .compare-row:last-child { border-bottom: none; }
-  .cr-feature {
-    padding: 14px 24px;
-    font-size: 14px; color: var(--text);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .cr-feature .cr-icon { font-size: 16px; flex-shrink: 0; }
-  .cr-feature .cr-cat {
-    font-family: var(--mono); font-size: 9px;
-    color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase;
-    margin-top: 1px;
-  }
-  .cr-trial, .cr-full {
-    padding: 14px 24px; text-align: center;
-    border-left: 1px solid rgba(41,171,226,0.08);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600;
-  }
-  .cr-full { background: rgba(41,171,226,0.03); }
-  .tick { color: var(--green); font-size: 18px; }
-  .cross { color: rgba(255,255,255,0.15); font-size: 18px; }
-  .partial { color: var(--amber); font-size: 13px; font-weight: 600; }
-  .compare-cta {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    border-top: 1px solid var(--border);
-    background: var(--navy-soft);
-  }
-  .cta-col {
-    padding: 20px 24px; text-align: center;
-    border-left: 1px solid var(--border);
-  }
-  .cta-col:first-child { border-left: none; }
-
   /* ── FAQ ── */
   .faq-list { display: flex; flex-direction: column; gap: 0; }
   .faq-item {
@@ -473,12 +396,6 @@
     .nav-links { gap: 12px; }
     .nav-links a:not(.nav-cta) { display: none; }
     section { padding: 56px 16px; }
-    .compare-header, .compare-row, .compare-cta {
-      grid-template-columns: 1.2fr 0.9fr 0.9fr;
-    }
-    .cr-feature { padding: 12px 10px; font-size: 13px; }
-    .cr-trial, .cr-full { padding: 12px 8px; }
-    .col-feature, .col-trial, .col-full { padding: 14px 10px; }
     footer { flex-direction: column; text-align: center; }
   }
 
@@ -486,38 +403,6 @@
     .hero-eyebrow::before { animation: none; }
     * { transition: none !important; }
   }
-
-  /* ── COMING SOON MODAL ── */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(10,22,40,0.75);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    align-items: center; justify-content: center;
-    padding: 20px;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px; padding: 36px;
-    max-width: 380px; width: 100%;
-    text-align: center; position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  }
-  .modal-box .m-icon { font-size: 34px; margin-bottom: 14px; }
-  .modal-box h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px; font-weight: 800; color: var(--white);
-    margin-bottom: 10px;
-  }
-  .modal-box p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 22px; }
-  .modal-close {
-    position: absolute; top: 12px; right: 14px;
-    background: none; border: none; color: var(--text-dim);
-    font-size: 20px; cursor: pointer; line-height: 1;
-  }
-  .modal-close:hover { color: var(--ice); }
 </style>
 </head>
 <body>
@@ -528,8 +413,8 @@
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#install">Install</a>
-    <a href="#compare">Trial vs Full</a>
-    <a href="full-edition.html" class="nav-cta">Get Full Version</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
   </div>
 </nav>
 
@@ -537,16 +422,15 @@
 <div class="hero">
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
   <div class="hero-content">
-    <div class="hero-eyebrow">Streamlit-in-Snowflake · Unlimited Free Trial</div>
+    <div class="hero-eyebrow">Streamlit-in-Snowflake · 9 Detectors · 100% Free</div>
     <h1>Snowflake observability that <em>never leaves</em> your account</h1>
     <p class="hero-sub">
-      SnowLens is a Streamlit app that installs directly into your Snowflake account.
+      SnowLens is a free Streamlit app that installs directly into your Snowflake account.
       It analyses your query performance and cost patterns using your own account
       metadata — <strong>nothing is ever sent outside your environment.</strong>
     </p>
     <div class="hero-actions">
-      <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1lKYcKpSO6aFe1IpRZT0hccu7IFn6st1M" target="_blank" rel="noopener">↓ &nbsp;Install the free trial</a>
-      <a class="btn-ghost" href="full-edition.html">See full version</a>
+      <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener">↓ &nbsp;Download SnowLens — Free</a>
     </div>
     <div class="hero-badge">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -575,8 +459,8 @@
     <div class="trust-item">
       <div class="trust-icon">🎁</div>
       <div>
-        <h4>Unlimited free trial</h4>
-        <p>Trial features never expire. Use Slow Query Finder and Cost Anomaly Detector as long as you need.</p>
+        <h4>Completely free</h4>
+        <p>All 9 detectors, configurable windows, cost attribution — no payment, no signup, no expiry.</p>
       </div>
     </div>
     <div class="trust-item">
@@ -592,29 +476,112 @@
 <!-- FEATURES -->
 <section id="features">
   <div class="section-inner">
-    <div class="section-label">Trial Edition · Unlimited</div>
-    <h2 class="section-title">Two features. Always free. No expiry.</h2>
-    <p class="section-sub">The trial edition includes two fully working detection rules, running on the same detection engine as the full version. No time limit, no account required, no card needed.</p>
+    <div class="section-label">9 Detection Rules</div>
+    <h2 class="section-title">Performance and cost anomalies, caught automatically</h2>
+    <p class="section-sub">SnowLens ships with 9 detection rules covering query performance and warehouse cost. Every flagged event comes with a plain-English recommendation and a specific next step.</p>
     <div class="feature-grid">
+
+      <!-- Performance detectors -->
       <div class="feature-card">
         <div class="feature-badge">Performance</div>
         <h3>🐢 Slow Query Finder</h3>
-        <p>Flags any query — successful or failed — that takes longer than 10 seconds of total elapsed time. Runs continuously on a rolling 6-hour window, so you catch slow queries as they happen instead of digging through yesterday's history.</p>
+        <p>Flags queries that exceed a configurable threshold (10s / 20s / 30s / 60s). Optional SELECT-only filter to ignore ETL/DML workloads.</p>
         <div class="feature-meta">
-          <span>Rolling 6-hour window</span>
-          <span>&gt;10s elapsed time</span>
-          <span>SUCCESS + FAIL</span>
+          <span>Configurable threshold</span>
+          <span>SELECT-only toggle</span>
         </div>
       </div>
+
+      <div class="feature-card">
+        <div class="feature-badge">Performance</div>
+        <h3>🚫 Cancelled Query Detector</h3>
+        <p>Catches queries manually stopped or cancelled by a timeout — often a sign of runaway workloads or misconfigured timeouts.</p>
+        <div class="feature-meta">
+          <span>Error-pattern match</span>
+          <span>Rolling window</span>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-badge">Performance</div>
+        <h3>⚠️ Query Failure Detector</h3>
+        <p>Surfaces non-cancellation query failures — syntax errors, permission issues, resource limits, and other runtime errors.</p>
+        <div class="feature-meta">
+          <span>Non-cancel failures</span>
+          <span>Error detail</span>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-badge">Performance</div>
+        <h3>💿 Disk Spill Detector</h3>
+        <p>Finds queries that ran out of memory and spilled to disk. Classifies local vs remote spill and flags remote spill as high risk.</p>
+        <div class="feature-meta">
+          <span>Local vs remote</span>
+          <span>High-risk banner</span>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-badge">Performance</div>
+        <h3>⏳ Queuing / Contention Detector</h3>
+        <p>Detects warehouses where queries queue due to concurrency overload (&gt;60s cumulative). Recommends multi-cluster warehouses.</p>
+        <div class="feature-meta">
+          <span>Concurrency analysis</span>
+          <span>Multi-cluster advice</span>
+        </div>
+      </div>
+
+      <!-- Cost detectors -->
       <div class="feature-card">
         <div class="feature-badge">Cost</div>
-        <h3>💸 Cost Anomaly Detector</h3>
-        <p>Compares each warehouse's hourly credit consumption to its own rolling 7-day average. Flags any hour where usage spikes more than 2 standard deviations above baseline — catching runaway queries, forgotten warehouses, or unexpected batch jobs before they balloon your bill.</p>
+        <h3>💸 Credit Spike Detector</h3>
+        <p>Compares each warehouse's hourly credit usage to its own rolling baseline. Flags hours where usage spikes more than 2 standard deviations above average.</p>
         <div class="feature-meta">
-          <span>7-day baseline</span>
           <span>Per-warehouse</span>
           <span>2σ threshold</span>
         </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-badge">Cost</div>
+        <h3>😴 Idle-But-Running Detector</h3>
+        <p>Catches warehouses burning credits with zero queries running — forgotten warehouses, misconfigured auto-suspend, or orphaned resources.</p>
+        <div class="feature-meta">
+          <span>Credits &gt; 0, queries = 0</span>
+          <span>Waste identification</span>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-badge">Cost</div>
+        <h3>📏 Oversized Warehouse Detector</h3>
+        <p>Identifies warehouses sized larger than their workload needs by comparing average bytes scanned against warehouse size tier.</p>
+        <div class="feature-meta">
+          <span>Size vs workload</span>
+          <span>Right-sizing advice</span>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-badge">Cost</div>
+        <h3>👤 Workload Cost Spike Detector</h3>
+        <p>Finds workloads (by query tag or role) that are cost outliers compared to your other workloads — using credit attribution data.</p>
+        <div class="feature-meta">
+          <span>Tag or role grouping</span>
+          <span>Attribution-based</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bonus: Attribution -->
+    <div style="margin-top:32px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+      <div style="font-size:28px">🏷️</div>
+      <div style="flex:1;min-width:260px">
+        <div class="feature-badge">Attribution</div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--white);margin-bottom:8px">Cost Attribution by Workload</h3>
+        <p style="font-size:14px;color:var(--text-dim);line-height:1.6">Groups credit usage by <code style="font-family:var(--mono);color:var(--ice)">QUERY_TAG</code>, detected dbt model, or role — giving you a clear breakdown of who's spending what. Works with any orchestration tool (Airflow, Matillion, dbt, cron).</p>
       </div>
     </div>
   </div>
@@ -660,28 +627,28 @@
         <div class="p-icon">✅</div>
         <div>
           <h4>Only reads Snowflake metadata</h4>
-          <p>Queries ACCOUNT_USAGE.QUERY_HISTORY and WAREHOUSE_METERING_HISTORY — Snowflake's own internal views about how your account is used, not your actual business tables.</p>
+          <p>Queries ACCOUNT_USAGE.QUERY_HISTORY and WAREHOUSE_METERING_HISTORY — Snowflake's own internal views, not your business tables.</p>
         </div>
       </div>
       <div class="privacy-point">
         <div class="p-icon">✅</div>
         <div>
           <h4>No outbound network calls</h4>
-          <p>Streamlit-in-Snowflake runs in an isolated environment. SnowLens makes no calls to external APIs, analytics services, or the VizCanvaz servers.</p>
+          <p>Streamlit-in-Snowflake runs in an isolated environment. SnowLens makes no calls to external APIs or analytics services.</p>
         </div>
       </div>
       <div class="privacy-point">
         <div class="p-icon">✅</div>
         <div>
           <h4>Runs on your compute</h4>
-          <p>The app runs on a warehouse in your account. You pay your own Snowflake compute cost (typically a few cents per session on an XS warehouse).</p>
+          <p>The app runs on a warehouse in your account. Typically a few cents per session on an XS warehouse.</p>
         </div>
       </div>
       <div class="privacy-point">
         <div class="p-icon">✅</div>
         <div>
           <h4>Least-privilege role</h4>
-          <p>The installer creates a dedicated SNOWLENS_ROLE with only the permissions the app needs. It cannot write to your data or access objects outside its own schema.</p>
+          <p>The installer creates a dedicated role with only the permissions the app needs. It cannot access objects outside its own schema.</p>
         </div>
       </div>
     </div>
@@ -699,10 +666,10 @@
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-body">
-          <h3>Download the trial package</h3>
+          <h3>Download the package</h3>
           <p>Download the ZIP from the button below. It contains two SQL scripts and two Python source files. No other dependencies.</p>
-          <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1lKYcKpSO6aFe1IpRZT0hccu7IFn6st1M" target="_blank" rel="noopener" style="display:inline-flex;font-size:14px;padding:10px 20px;margin-top:4px;">↓ &nbsp;Download SnowLens Trial</a>
-          <div class="step-tip">Requires a Snowflake account (any edition — Standard works). No paid tier upgrade needed for the trial.</div>
+          <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener" style="display:inline-flex;font-size:14px;padding:10px 20px;margin-top:4px;">↓ &nbsp;Download SnowLens</a>
+          <div class="step-tip">Requires a Snowflake account (any edition — Standard works fine). No paid tier needed.</div>
         </div>
       </div>
 
@@ -715,14 +682,14 @@
 <span class="comment">-- sql/01_setup.sql (excerpt)</span>
 <span class="keyword">USE ROLE</span> ACCOUNTADMIN;
 
-<span class="keyword">CREATE WAREHOUSE IF NOT EXISTS</span> SNOWLENS_WH
+<span class="keyword">CREATE WAREHOUSE IF NOT EXISTS</span> SNOWLENS_FULL_WH
     <span class="keyword">WITH</span> WAREHOUSE_SIZE = <span class="string">'XSMALL'</span>
          AUTO_SUSPEND = 60
          AUTO_RESUME = TRUE;
 
-<span class="keyword">CREATE DATABASE IF NOT EXISTS</span> SNOWLENS_TRIAL;
+<span class="keyword">CREATE DATABASE IF NOT EXISTS</span> SNOWLENS_FULL;
 <span class="keyword">GRANT IMPORTED PRIVILEGES ON DATABASE</span> SNOWFLAKE
-    <span class="keyword">TO ROLE</span> SNOWLENS_ROLE;
+    <span class="keyword">TO ROLE</span> SNOWLENS_FULL_ROLE;
           </div>
           <div class="step-tip">GRANT IMPORTED PRIVILEGES on the SNOWFLAKE database is what allows the app to read ACCOUNT_USAGE. It grants read-only access to Snowflake's own metadata — not your data.</div>
         </div>
@@ -732,154 +699,33 @@
         <div class="step-num">3</div>
         <div class="step-body">
           <h3>Upload files and create the app</h3>
-          <p>In Snowsight, navigate to <strong>Data → Databases → SNOWLENS_TRIAL → APP → Stages → SNOWLENS_STAGE</strong> and upload <code style="font-family:var(--mono);color:var(--ice)">streamlit_app.py</code> and <code style="font-family:var(--mono);color:var(--ice)">environment.yml</code> from the <code style="font-family:var(--mono);color:var(--ice)">src/</code> folder. Then run <code style="font-family:var(--mono);color:var(--ice)">sql/02_create_app.sql</code>.</p>
+          <p>In Snowsight, navigate to <strong>Data → Databases → SNOWLENS_FULL → APP → Stages → SNOWLENS_STAGE</strong> and upload <code style="font-family:var(--mono);color:var(--ice)">streamlit_app.py</code> and <code style="font-family:var(--mono);color:var(--ice)">environment.yml</code> from the <code style="font-family:var(--mono);color:var(--ice)">src/</code> folder. Then run <code style="font-family:var(--mono);color:var(--ice)">sql/02_create_app.sql</code>.</p>
           <div class="code-block">
 <span class="comment">-- sql/02_create_app.sql (excerpt)</span>
 <span class="keyword">CREATE OR REPLACE STREAMLIT</span> SNOWLENS_APP
-    ROOT_LOCATION = <span class="string">'@SNOWLENS_TRIAL.APP.SNOWLENS_STAGE'</span>
+    ROOT_LOCATION = <span class="string">'@SNOWLENS_FULL.APP.SNOWLENS_STAGE'</span>
     MAIN_FILE     = <span class="string">'streamlit_app.py'</span>
-    QUERY_WAREHOUSE = SNOWLENS_WH;
+    QUERY_WAREHOUSE = SNOWLENS_FULL_WH;
           </div>
-          <p style="margin-top:12px">Done. Open <strong>Projects → Streamlit → SNOWLENS_APP</strong> in Snowsight. The app loads with both trial features ready.</p>
-          <div class="step-tip">If you ever want to remove SnowLens completely, run sql/99_uninstall.sql as ACCOUNTADMIN. It drops the database, warehouse, and role in seconds.</div>
+          <p style="margin-top:12px">Done. Open <strong>Projects → Streamlit → SNOWLENS_APP</strong> in Snowsight. All 9 detectors are ready.</p>
+          <div class="step-tip">To remove SnowLens completely, run sql/99_uninstall.sql as ACCOUNTADMIN. It drops the database, warehouse, and role in seconds.</div>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- COMPARISON -->
-<section id="compare" style="background:var(--navy-mid)">
-  <div class="section-inner">
-    <div class="section-label">Trial vs Full Edition</div>
-    <h2 class="section-title">Unlimited trial. 9 detectors in the full version.</h2>
-    <p class="section-sub">The trial never expires — use it as long as you need. When you're ready for deeper visibility, the full edition adds 7 more anomaly detectors and longer data windows.</p>
-
-    <div class="compare-wrap">
-      <div class="compare-header">
-        <div class="col-feature"></div>
-        <div class="col-trial">
-          <div class="col-label">Trial</div>
-          <div class="col-name">Free</div>
-          <div class="col-price">Unlimited · No expiry</div>
-        </div>
-        <div class="col-full">
-          <div class="col-label">Full Edition</div>
-          <div class="col-name">SnowLens Pro</div>
-          <div class="col-price" style="color:var(--amber)">Coming soon · vizcanvaz.com</div>
-        </div>
-      </div>
-
-      <!-- Window -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">📅</span><div><div>Detection window</div><div class="cr-cat">Coverage</div></div></div>
-        <div class="cr-trial"><span class="partial">6h perf · 7d cost</span></div>
-        <div class="cr-full"><span class="tick">Longer, configurable</span></div>
-      </div>
-
-      <!-- Performance 1 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">🐢</span><div><div>Slow Query Finder</div><div class="cr-cat">Performance · &gt;10s elapsed</div></div></div>
-        <div class="cr-trial"><span class="tick">✓</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Cost 1 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">💸</span><div><div>Cost Anomaly Detector</div><div class="cr-cat">Cost · &gt;2σ vs 7d baseline</div></div></div>
-        <div class="cr-trial"><span class="tick">✓</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Performance 2 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">🚫</span><div><div>Cancelled Query Detector</div><div class="cr-cat">Performance · error-pattern match</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Performance 3 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">⚠️</span><div><div>Query Failure Detector</div><div class="cr-cat">Performance · non-cancel failures</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Performance 4 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">💿</span><div><div>Disk Spill Detector</div><div class="cr-cat">Performance · remote spill = high risk</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Performance 5 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">⏳</span><div><div>Queuing / Contention Detector</div><div class="cr-cat">Performance · concurrency → multi-cluster</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Cost 2 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">😴</span><div><div>Idle-But-Running Detector</div><div class="cr-cat">Cost · credits burned, 0 queries</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Cost 3 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">📏</span><div><div>Oversized Warehouse Detector</div><div class="cr-cat">Cost · size vs. bytes scanned</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Cost 4 -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">👤</span><div><div>Workload / Role Cost Spike Detector</div><div class="cr-cat">Cost · &gt;2σ by tag or role</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Attribution -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">🏷️</span><div><div>Cost Attribution by Workload</div><div class="cr-cat">Attribution · dbt-optional universal tagging</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <!-- Support -->
-      <div class="compare-row">
-        <div class="cr-feature"><span class="cr-icon">🎧</span><div><div>Priority email support</div><div class="cr-cat">Support</div></div></div>
-        <div class="cr-trial"><span class="cross">—</span></div>
-        <div class="cr-full"><span class="tick">✓</span></div>
-      </div>
-
-      <div class="compare-cta">
-        <div class="cta-col"></div>
-        <div class="cta-col">
-          <a class="btn-ghost" href="https://drive.google.com/uc?export=download&id=1lKYcKpSO6aFe1IpRZT0hccu7IFn6st1M" target="_blank" rel="noopener" style="font-size:13px;padding:10px 18px;">↓ Download trial</a>
-        </div>
-        <div class="cta-col">
-          <!-- TODO: replace with your real Razorpay Payment Link once created -->
-          <a class="btn-primary" href="full-edition.html" style="font-size:13px;padding:10px 18px;background:var(--amber);color:var(--navy)">Get Full Version →</a>
-          <div style="margin-top:8px;font-size:11px;color:var(--text-dim);font-family:var(--mono);">from ₹4,999 one-time</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq">
+<section id="faq" style="background:var(--navy-mid)">
   <div class="section-inner">
     <div class="section-label">FAQ</div>
     <h2 class="section-title">Common questions</h2>
     <div class="faq-list">
 
       <div class="faq-item">
-        <div class="faq-q">Do I need a paid Snowflake account to use the trial?</div>
-        <div class="faq-a">No. The trial runs on any Snowflake account — including a free trial account. You only need ACCOUNTADMIN access to run the setup script. The app uses an XS auto-suspend warehouse, so compute costs are minimal (a few cents per session).</div>
+        <div class="faq-q">Is SnowLens really free?</div>
+        <div class="faq-a">Yes — completely free. All 9 detectors, configurable detection windows, cost attribution, warehouse scope filtering. No payment, no signup, no expiry, no feature gating.</div>
       </div>
 
       <div class="faq-item">
@@ -893,18 +739,18 @@
       </div>
 
       <div class="faq-item">
-        <div class="faq-q">Is the trial really unlimited? What's the catch?</div>
-        <div class="faq-a">Genuinely unlimited — no time limit, no usage cap, no credit card. The only restriction is the 7-day data window (vs 30/90 days in the full edition) and the 2 active features (vs 8 in the full edition). The idea is that 2 features is enough to be genuinely useful, but the full edition gives you a complete picture of your account's health.</div>
+        <div class="faq-q">Will SnowLens handle a large account with 90 days of history?</div>
+        <div class="faq-a">Yes. SnowLens includes memory-safety hardening for Streamlit-in-Snowflake's ~32 MB limit: query text is truncated to 300 characters, each detector is capped to the top 200 findings by severity, cost attribution is aggregated in SQL, and you can scope detection to individual warehouses. These measures keep the app responsive even on accounts with thousands of daily queries.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q">Why does ACCOUNT_USAGE have a data latency?</div>
-        <div class="faq-a">Snowflake's ACCOUNT_USAGE views are not real-time — QUERY_HISTORY has a latency of up to 45 minutes, and WAREHOUSE_METERING_HISTORY up to 3 hours. This is Snowflake's own architecture, not a SnowLens limitation. SnowLens refreshes its cache every 5 minutes, so you'll always see the most recent data Snowflake has made available.</div>
+        <div class="faq-a">Snowflake's ACCOUNT_USAGE views are not real-time — QUERY_HISTORY has a latency of up to 45 minutes, and WAREHOUSE_METERING_HISTORY up to 3 hours. This is Snowflake's own architecture, not a SnowLens limitation.</div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q">How do I uninstall SnowLens completely?</div>
-        <div class="faq-a">Run <code style="font-family:var(--mono);color:var(--ice)">sql/99_uninstall.sql</code> as ACCOUNTADMIN. It drops the SNOWLENS_TRIAL database, SNOWLENS_WH warehouse, and SNOWLENS_ROLE in three lines. Every object SnowLens created is gone with no residue.</div>
+        <div class="faq-a">Run <code style="font-family:var(--mono);color:var(--ice)">sql/99_uninstall.sql</code> as ACCOUNTADMIN. It drops the database, warehouse, and role in three lines. Every object SnowLens created is gone with no residue.</div>
       </div>
 
     </div>
@@ -915,15 +761,12 @@
 <section class="final-cta">
   <div class="section-inner" style="text-align:center">
     <div class="section-label" style="text-align:center">Ready to start?</div>
-    <h2 class="section-title" style="max-width:560px;margin:0 auto 12px">Install in 5 minutes. No card, no signup, no expiry.</h2>
-    <p>Download the trial ZIP, run two SQL scripts in Snowsight, and you're live.<br>Your data stays inside your account — always.</p>
+    <h2 class="section-title" style="max-width:560px;margin:0 auto 12px">Install in 5 minutes. Free, forever.</h2>
+    <p>Download the ZIP, run two SQL scripts in Snowsight, and you're live.<br>Your data stays inside your account — always.</p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1lKYcKpSO6aFe1IpRZT0hccu7IFn6st1M" target="_blank" rel="noopener" style="font-size:16px;padding:15px 30px;">↓ &nbsp;Download free trial</a>
-      <!-- TODO: replace with your real Razorpay Payment Link once created -->
-      <a class="btn-ghost" href="full-edition.html" style="font-size:16px;padding:15px 30px;">Get Full Version →</a>
+      <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener" style="font-size:16px;padding:15px 30px;">↓ &nbsp;Download SnowLens — Free</a>
     </div>
-    <p style="margin-top:10px;font-size:12px;color:var(--text-dim);font-family:var(--mono);">from ₹4,999 one-time</p>
-    <p style="margin-top:8px;font-size:13px;color:var(--text-dim)">
+    <p style="margin-top:16px;font-size:13px;color:var(--text-dim)">
       Questions? Email <a href="mailto:vizcanvas@gmail.com" style="color:var(--ice);text-decoration:none">vizcanvas@gmail.com</a>
     </p>
   </div>
@@ -934,42 +777,10 @@
   <div>© 2026 VizCanvaz · <a href="https://www.vizcanvaz.com">vizcanvaz.com</a></div>
   <div class="footer-links">
     <a href="about.html">About &amp; Contact</a>
-    <a href="terms.html">Terms</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="refund.html">Refund</a>
-    <a href="shipping.html">Delivery</a>
+    <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a>
   </div>
 </footer>
 
-<!-- COMING SOON MODAL -->
-<div class="modal-overlay" id="comingSoonModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeComingSoon()" aria-label="Close">✕</button>
-    <div class="m-icon">🚀</div>
-    <h3>Full Edition — Coming Soon</h3>
-    <p>SnowLens Pro (all 9 detectors, 30/90-day windows) is in the works. Email us and we'll let you know the moment it's live.</p>
-    <a class="btn-primary" href="mailto:vizcanvas@gmail.com?subject=SnowLens Full Edition" style="font-size:14px;padding:11px 22px;">Email vizcanvas@gmail.com</a>
-  </div>
-</div>
-
-<script>
-  function showComingSoon(e) {
-    if (e) e.preventDefault();
-    document.getElementById('comingSoonModal').classList.add('open');
-  }
-  function closeComingSoon() {
-    document.getElementById('comingSoonModal').classList.remove('open');
-  }
-  document.addEventListener('DOMContentLoaded', function () {
-    const overlay = document.getElementById('comingSoonModal');
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) closeComingSoon();
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeComingSoon();
-    });
-  });
-</script>
 <script>
   /* Ambient hero canvas — flowing data-pipeline lines */
   (function() {
@@ -1005,7 +816,6 @@
         ctx.lineWidth = l.width;
         ctx.stroke();
 
-        /* dot at leading edge */
         ctx.beginPath();
         ctx.arc(l.x + l.len, l.y, l.width + 0.5, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(41,171,226,${l.alpha * 3})`;
