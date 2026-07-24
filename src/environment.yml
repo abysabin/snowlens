@@ -1,0 +1,8 @@
+name: snowlens-full
+channels:
+  - snowflake
+dependencies:
+  - streamlit
+  - pandas
+  - altair
+  - snowflake-snowpark-python
