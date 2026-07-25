@@ -14,13 +14,14 @@ Trial edition with no conflict.
 
 ---
 
-## What gets detected — all 8 rules
+## What gets detected — all 9 rules
 
 **Performance**
 - **long_running** — queries that took longer than 10 seconds
 - **cancelled** — queries manually stopped or cancelled by a timeout
 - **failed** — queries that errored out (non-cancellation)
 - **spilling** — queries that ran out of memory and spilled to local/remote disk
+- **queued queries** - queries in queue due to more workloads,enabling multi-cluster warehouse is the best approach
 
 **Cost**
 - **credit_spike** — a warehouse used far more credits in an hour than its own recent average (>2σ)
@@ -129,7 +130,7 @@ any data from your account.
 
 ## License
 
-See `LICENSE.md`. Paid, one-time license for use in a single Snowflake account.
+See `LICENSE.md`. Free , Life-time license for use in any single Snowflake account.
 
 ## Support
 
