@@ -12,7 +12,7 @@
   :root {
     --navy: #0A1628; --ice: #29ABE2; --ice-glow: rgba(41,171,226,0.15);
     --white: #F8FAFF; --surface: #0D1B35; --border: rgba(41,171,226,0.18);
-    --text: #D6E8F5; --text-dim: #7EA8C4;
+    --text: #D6E8F5; --text-dim: #7EA8C4; --green: #34C98A;
   }
   body {
     background: var(--navy); color: var(--text); font-family: 'Inter', system-ui, sans-serif;
@@ -49,6 +49,18 @@
   }
   .contact-line { color: var(--text); }
   .contact-line strong { color: var(--white); display: inline-block; min-width: 130px; }
+  .link-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 24px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none; transition: border-color 0.2s, transform 0.15s;
+  }
+  .link-card:hover { border-color: var(--ice); transform: translateY(-2px); }
+  .link-card .lc-icon { font-size: 24px; flex-shrink: 0; }
+  .link-card .lc-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--white);
+  }
+  .link-card .lc-desc { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
   footer {
     background: var(--navy); border-top: 1px solid var(--border); padding: 24px 5vw;
     text-align: center; font-size: 13px; color: var(--text-dim);
@@ -68,21 +80,56 @@
   <h1>About &amp; Contact</h1>
   <p class="updated">Last updated: July 2026</p>
 
-  <h2>About VizCanvaz</h2>
-  <p><strong>VizCanvaz</strong> builds developer tools for the Snowflake Data Cloud. Our product,
-     <strong>SnowLens</strong>, is a free Snowflake observability app that installs directly into a
-     customer's own Snowflake account and surfaces query-performance and cost anomalies — analysing
-     only Snowflake's own usage metadata, so no customer data ever leaves the account.</p>
+  <h2>About SnowLens</h2>
+  <p><strong>SnowLens</strong> is a free Snowflake observability app built by
+     <a href="https://www.vizcanvaz.com/p/blog-page.html" target="_blank">Abin Alex</a> under the
+     <strong><a href="https://www.vizcanvaz.com" target="_blank">VizCanvaz</a></strong> brand.
+     It installs directly into your own Snowflake account, surfaces query-performance and cost anomalies
+     using 9 detection rules, and never sends any data outside your environment.</p>
   <p>SnowLens runs on Streamlit-in-Snowflake, requires no external infrastructure, and makes no
-     outbound network calls. It ships with 9 detection rules and is completely free to use.</p>
+     outbound network calls. It is completely free — no payment, no signup, no expiry.</p>
 
-  <h2>Contact us</h2>
+  <h2>Links</h2>
+
+  <a class="link-card" href="https://www.vizcanvaz.com/2026/07/all-about-snowlens-snowflake.html" target="_blank">
+    <div class="lc-icon">📝</div>
+    <div>
+      <div class="lc-title">Blog: All About SnowLens</div>
+      <div class="lc-desc">Deep dive into the 9 detection rules, logic, and architecture</div>
+    </div>
+  </a>
+
+  <a class="link-card" href="https://github.com/abysabin/snowlens" target="_blank">
+    <div class="lc-icon">💻</div>
+    <div>
+      <div class="lc-title">GitHub Repository</div>
+      <div class="lc-desc">Source code, install scripts, and documentation</div>
+    </div>
+  </a>
+
+  <a class="link-card" href="https://www.vizcanvaz.com" target="_blank">
+    <div class="lc-icon">🌐</div>
+    <div>
+      <div class="lc-title">VizCanvaz Blog</div>
+      <div class="lc-desc">Data engineering tutorials — Snowflake, Matillion, Tableau, and more</div>
+    </div>
+  </a>
+
+  <a class="link-card" href="https://www.vizcanvaz.com/p/blog-page.html" target="_blank">
+    <div class="lc-icon">👤</div>
+    <div>
+      <div class="lc-title">About Abin Alex</div>
+      <div class="lc-desc">15+ years in data engineering — Snowflake, Matillion, Tableau</div>
+    </div>
+  </a>
+
+  <h2>Contact</h2>
   <div class="box">
     <p class="contact-line" style="margin-bottom:0"><strong>Email:</strong>
        <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a></p>
   </div>
 
-  <p>For support, feature requests, or any questions about SnowLens — email us at
+  <p>For support, feature requests, or any questions about SnowLens — email
      <a href="mailto:vizcanvas@gmail.com">vizcanvas@gmail.com</a>.</p>
 </div>
 
