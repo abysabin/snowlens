@@ -2,25 +2,6 @@
 
 Copyright © VizCanvaz. All rights reserved.
 
-## Grant
-
-Upon receipt of payment in full, VizCanvaz grants you a limited, non-exclusive,
-non-transferable, perpetual license to install and use the SnowLens Full Edition
-inside a **single Snowflake account** owned or operated by you or your
-organisation, for your own internal business use. This is a one-time license —
-there are no recurring or renewal fees for continued use of the purchased version.
-
-## Restrictions
-
-You may **not**:
-
-1. Redistribute, resell, sublicense, or share this software, or any portion of
-   it, with any third party.
-2. Remove or obscure any copyright, trademark, or attribution notice contained
-   in the source files.
-3. Use the software as part of a service offered to third parties without a
-   separate written commercial agreement with VizCanvaz.
-
 ## No warranty
 
 The software is provided "as is", without warranty of any kind, express or
