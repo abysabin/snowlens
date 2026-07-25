@@ -841,6 +841,54 @@
       if (!isOpen) item.classList.add('open');
     });
   });
+
+  /* ── Download tracking → Supabase ── */
+  (function() {
+    const SUPABASE_URL = 'https://fnatsobqmsuscojwolrq.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_9Dp1AnCw1xdMQWrRD2Sy8g_jThG1WeL';
+    const DOWNLOAD_URL = 'https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l';
+
+    async function trackDownload() {
+      try {
+        // Fetch approximate location from free IP geolocation API
+        let geo = {};
+        try {
+          const geoResp = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) });
+          if (geoResp.ok) geo = await geoResp.json();
+        } catch (_) { /* geolocation is best-effort */ }
+
+        // Log to Supabase
+        await fetch(SUPABASE_URL + '/rest/v1/downloads', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            country:    geo.country_name || null,
+            city:       geo.city || null,
+            region:     geo.region || null,
+            ip:         geo.ip || null,
+            user_agent: navigator.userAgent,
+            referrer:   document.referrer || null,
+            page:       location.pathname
+          })
+        });
+      } catch (_) { /* tracking must never block the download */ }
+    }
+
+    // Intercept all download links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href*="' + DOWNLOAD_URL.substring(0, 40) + '"]');
+      if (!link) return;
+      e.preventDefault();
+      trackDownload().finally(() => {
+        window.open(DOWNLOAD_URL, '_blank');
+      });
+    });
+  })();
 </script>
 
 </body>
