@@ -1,27 +1,34 @@
-# SnowLens — Full Edition
+# SnowLens — Free Edition
 
 Snowflake cost & performance observability that runs entirely inside your own
 Snowflake account. No data ever leaves your environment. No outbound network
-calls. All 8 detectors, configurable detection windows, and cost attribution
-by workload.
+calls. Completely free.
 
 It runs on Streamlit-in-Snowflake and reads only Snowflake's own
 `ACCOUNT_USAGE` views (`QUERY_HISTORY`, `WAREHOUSE_METERING_HISTORY`,
 `QUERY_ATTRIBUTION_HISTORY`). Nothing is sent externally.
 
-Installs into its own `SNOWLENS_FULL` objects, so it can run alongside the free
-Trial edition with no conflict.
+---
+
+## Two apps
+
+SnowLens installs as two Streamlit apps that share one stage and one warehouse:
+
+| App | What it does |
+| --- | --- |
+| **`SNOWLENS_APP`** | The anomaly dashboard — 9 detectors, configurable detection windows, and cost attribution by workload. |
+| **`SNOWLENS_SIZING_ADVISOR`** | The warehouse sizing advisor — analyses spill, queuing, scan volume and concurrency per warehouse, then recommends a size and cluster count with generated `ALTER WAREHOUSE` statements. |
 
 ---
 
 ## What gets detected — all 9 rules
 
 **Performance**
-- **long_running** — queries that took longer than 10 seconds
+- **long_running** — queries exceeding a configurable threshold (10s / 20s / 30s / 60s), with optional SELECT-only filter
 - **cancelled** — queries manually stopped or cancelled by a timeout
 - **failed** — queries that errored out (non-cancellation)
-- **spilling** — queries that ran out of memory and spilled to local/remote disk
-- **queued queries** - queries in queue due to more workloads,enabling multi-cluster warehouse is the best approach
+- **spilling** — queries that ran out of memory and spilled to local/remote disk (remote flagged as high risk)
+- **queuing** — warehouses with cumulative queued overload time >60s, indicating concurrency contention
 
 **Cost**
 - **credit_spike** — a warehouse used far more credits in an hour than its own recent average (>2σ)
@@ -29,32 +36,63 @@ Trial edition with no conflict.
 - **oversized_warehouse** — a warehouse sized larger than its workload needs
 - **workload_cost_spike** — a tagged workload (or role, if untagged) is a cost outlier vs your other workloads
 
-Plus **Cost Attribution by Workload** (dbt-optional universal tagging), which
-groups credit usage by `QUERY_TAG`, detected dbt model, or role.
+Plus **Cost Attribution by Workload**, which groups credit usage by
+`QUERY_TAG`, detected dbt model, or role.
 
 Every flagged event comes with a plain-English recommendation and a specific
 next step — not just a number.
 
 ---
 
-## Configurable detection windows (Full Edition)
+## Warehouse Sizing Advisor
 
-The Trial is fixed at a 6-hour (performance) / 7-day (cost) window. The Full
-Edition lets you widen either window right in the app — no SQL, no code change:
+`SNOWLENS_SIZING_ADVISOR` answers a different question from the detectors:
+not "what went wrong?" but "is each warehouse the right size?"
 
-- Open the app → **⚙️ Detection window settings**
-- Set the performance window (hours) and cost window (7 / 30 / 90 days)
-- Results update immediately
+It derives a recommendation per warehouse from observed behaviour over a
+7 / 30 / 90-day window:
 
-Detection is computed live from `ACCOUNT_USAGE` each time the app loads (and
-whenever you change the window), so results are always current.
+| Signal | What it means |
+| --- | --- |
+| **Remote spill rate** | Share of queries spilling to remote storage. The strongest undersizing signal — remote spill is dramatically slower than memory or local SSD. |
+| **Local spill rate** | Share spilling to local SSD. A softer signal, but sustained local spill still costs time. |
+| **p90 bytes scanned** | 90th-percentile scan per query, so a few large queries don't mask an otherwise small workload. |
+| **Cumulative queue time** | `QUEUED_OVERLOAD_TIME` per warehouse — a **concurrency** signal, fixed by scaling out, not up. |
+| **Peak concurrency** | Busiest hour's query count, used to size the cluster range. |
+| **Idle credit hours** | Hours that burned credits with zero queries — points at `AUTO_SUSPEND`. |
+
+**Decision logic**
+
+1. **Size up** if remote spill > 2% of queries, or local spill > 15%
+2. **Size down** if p90 scan < 100 MB, the warehouse is above Small, and spill is under 1%
+3. **Add clusters** (independently of size) if cumulative queue time > 60s
+4. **Otherwise keep** the current size
+
+Each recommendation carries a confidence level based on how many queries backed
+it, a plain-English explanation of why, and an estimated credits/hour delta. The
+app generates ready-to-review `ALTER WAREHOUSE` statements — it never executes
+them.
+
+---
+
+## Memory safety for large accounts
+
+SnowLens includes hardening for Streamlit-in-Snowflake's ~32 MB memory limit:
+
+- Query text truncated to 300 characters
+- Each detector capped to top 200 findings by severity
+- Cost attribution aggregated in SQL before loading into the app
+- Warehouse scope selector to limit detection to individual warehouses
+
+These measures keep the app responsive even on accounts with thousands of daily
+queries and 90-day detection windows.
 
 ---
 
 ## Installation
 
 **Prereqs:** ACCOUNTADMIN role, a Snowflake account (any edition — Standard
-works fine). Same simple 3-step flow as the Trial.
+works fine).
 
 ### 1. Run the setup script
 
@@ -73,25 +111,30 @@ In Snowsight:
 
 1. Go to **Data → Databases → SNOWLENS_FULL → APP → Stages → SNOWLENS_STAGE**
 2. Click **+ Files**
-3. Upload both files from the `src/` folder:
+3. Upload all three files from the `src/` folder:
    - `streamlit_app.py`
+   - `sizing_advisor.py`
    - `environment.yml`
 
-### 3. Create the Streamlit app
+### 3. Create the Streamlit apps
 
 Open a new Snowsight worksheet, paste in `sql/02_create_app.sql`, and run it.
-Then open **Projects → Streamlit → SNOWLENS_APP** in Snowsight.
+It creates both apps. Then open **Projects → Streamlit** in Snowsight, where
+you'll find:
+
+- **SNOWLENS_APP** — the anomaly dashboard
+- **SNOWLENS_SIZING_ADVISOR** — the warehouse sizing advisor
 
 ---
 
 ## Keeping results fresh
 
-There's nothing to schedule or re-run — detection is computed live each time the
-app loads, and again whenever you change the detection window. Results are cached
-for 5 minutes to keep the app responsive.
+Both apps compute live from ACCOUNT_USAGE every time they run or their settings
+change. There is no stored procedure and no results table — they query
+ACCOUNT_USAGE directly in the Streamlit session.
 
 Note: `ACCOUNT_USAGE` views lag from a few minutes up to a few hours — results
-reflect the most recent data Snowflake has made available.
+reflect the most recent data available from Snowflake.
 
 ---
 
@@ -111,7 +154,8 @@ ALTER SESSION SET QUERY_TAG = 'nightly_orders_job';
 ## Uninstall
 
 Run `sql/99_uninstall.sql` as ACCOUNTADMIN. It drops the `SNOWLENS_FULL`
-database, `SNOWLENS_FULL_WH` warehouse, and `SNOWLENS_FULL_ROLE` role.
+database (including both apps), `SNOWLENS_FULL_WH` warehouse, and
+`SNOWLENS_FULL_ROLE` role.
 
 ---
 
@@ -124,17 +168,17 @@ app is open, essentially zero when idle. Storage is negligible.
 
 ## Privacy & security
 
-SnowLens reads only `SNOWFLAKE.ACCOUNT_USAGE` metadata — no customer data, no
-query results — and makes no outbound network calls. VizCanvaz never receives
-any data from your account.
+Both apps read only `SNOWFLAKE.ACCOUNT_USAGE` metadata — no customer data, no
+query results — and make no outbound network calls. VizCanvaz never receives
+any data from your account. The sizing advisor generates `ALTER WAREHOUSE`
+statements for you to review, but never executes them.
 
 ## License
 
-See `LICENSE.md`. Free , Life-time license for use in any single Snowflake account.
+Free to use. No payment, no signup, no expiry.
 
 ## Support
 
-Priority email support: **vizcanvas@gmail.com** (include your Razorpay payment
-reference for the fastest response).
+Email: **vizcanvas@gmail.com**
 
 © 2026 VizCanvaz · vizcanvaz.com

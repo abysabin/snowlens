@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SnowLens — Free Snowflake Observability, Inside Your Account | VizCanvaz</title>
-<meta name="description" content="SnowLens is a free Streamlit app that runs inside your own Snowflake account. 9 detectors for slow queries, cost anomalies, spilling, queuing, and more — your data never leaves your environment.">
+<title>SnowLens — Free Snowflake Observability &amp; Warehouse Sizing, Inside Your Account | VizCanvaz</title>
+<meta name="description" content="SnowLens is a free Streamlit app that runs inside your own Snowflake account. 9 anomaly detectors plus a warehouse sizing advisor that recommends the right size and cluster count from your own usage history — your data never leaves your environment.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -411,7 +411,8 @@
 <nav>
   <a class="nav-brand" href="https://www.vizcanvaz.com">Viz<span>Canvaz</span></a>
   <div class="nav-links">
-    <a href="#features">Features</a>
+    <a href="#features">Detectors</a>
+    <a href="#sizing">Sizing Advisor</a>
     <a href="#install">Install</a>
     <a href="#faq">FAQ</a>
     <a href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener" class="nav-cta">Download Free</a>
@@ -422,12 +423,13 @@
 <div class="hero">
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
   <div class="hero-content">
-    <div class="hero-eyebrow">Streamlit-in-Snowflake · 9 Detectors · 100% Free</div>
+    <div class="hero-eyebrow">Streamlit-in-Snowflake · 2 Apps · 9 Detectors · 100% Free</div>
     <h1>Snowflake observability that <em>never leaves</em> your account</h1>
     <p class="hero-sub">
-      SnowLens is a free Streamlit app that installs directly into your Snowflake account.
-      It analyses your query performance and cost patterns using your own account
-      metadata — <strong>nothing is ever sent outside your environment.</strong>
+      SnowLens installs directly into your Snowflake account as two free apps: an
+      <strong>anomaly dashboard</strong> with 9 detectors, and a <strong>warehouse sizing
+      advisor</strong> that recommends the right size and cluster count from your own usage
+      history — <strong>nothing is ever sent outside your environment.</strong>
     </p>
     <div class="hero-actions">
       <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener">↓ &nbsp;Download SnowLens — Free</a>
@@ -460,7 +462,7 @@
       <div class="trust-icon">🎁</div>
       <div>
         <h4>Completely free</h4>
-        <p>All 9 detectors, configurable windows, cost attribution — no payment, no signup, no expiry.</p>
+        <p>Both apps, all 9 detectors, sizing recommendations, cost attribution — no payment, no signup, no expiry.</p>
       </div>
     </div>
     <div class="trust-item">
@@ -473,10 +475,42 @@
   </div>
 </div>
 
+<!-- TWO APPS -->
+<section id="apps" style="padding-bottom:0">
+  <div class="section-inner">
+    <div class="section-label">What you get</div>
+    <h2 class="section-title">Two apps, one install</h2>
+    <p class="section-sub">SnowLens installs as two Streamlit apps sharing one stage, one warehouse, and one least-privilege role. They answer different questions.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+
+      <div class="feature-card" style="border-color:var(--ice)">
+        <div class="feature-badge">App 1</div>
+        <h3>🔍 Anomaly Dashboard</h3>
+        <p style="margin-bottom:14px"><strong style="color:var(--text)">What went wrong?</strong> 9 detectors covering slow queries, failures, disk spill, queuing, credit spikes, idle warehouses, and workload cost outliers — each with a plain-English recommendation.</p>
+        <div class="feature-meta">
+          <span>SNOWLENS_APP</span>
+          <span>9 detectors</span>
+        </div>
+      </div>
+
+      <div class="feature-card" style="border-color:var(--amber)">
+        <div class="feature-badge" style="background:rgba(245,166,35,0.12);border-color:rgba(245,166,35,0.3);color:var(--amber)">App 2 · New</div>
+        <h3>📐 Warehouse Sizing Advisor</h3>
+        <p style="margin-bottom:14px"><strong style="color:var(--text)">Is each warehouse the right size?</strong> Analyses spill, queuing, scan volume and concurrency per warehouse, then recommends a size and cluster count with ready-to-review <code style="font-family:var(--mono);color:var(--ice)">ALTER WAREHOUSE</code> statements.</p>
+        <div class="feature-meta">
+          <span>SNOWLENS_SIZING_ADVISOR</span>
+          <span>Data-driven</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <section id="features">
   <div class="section-inner">
-    <div class="section-label">9 Detection Rules</div>
+    <div class="section-label">App 1 · 9 Detection Rules</div>
     <h2 class="section-title">Performance and cost anomalies, caught automatically</h2>
     <p class="section-sub">SnowLens ships with 9 detection rules covering query performance and warehouse cost. Every flagged event comes with a plain-English recommendation and a specific next step.</p>
     <div class="feature-grid">
@@ -587,6 +621,92 @@
   </div>
 </section>
 
+<!-- SIZING ADVISOR -->
+<section id="sizing" style="background:var(--navy-mid)">
+  <div class="section-inner">
+    <div class="section-label">App 2 · Warehouse Sizing Advisor</div>
+    <h2 class="section-title">Stop guessing warehouse sizes</h2>
+    <p class="section-sub">Most teams size a warehouse once, then never revisit it. The Sizing Advisor reads your actual usage history and tells you which warehouses are undersized, oversized, or fighting for concurrency — with the reasoning behind every call.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:36px">
+
+      <div class="feature-card">
+        <h3 style="font-size:16px">💿 Remote spill rate</h3>
+        <p>Share of queries spilling to remote storage. The strongest undersizing signal — remote spill is dramatically slower than memory or local SSD.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 style="font-size:16px">📊 p90 bytes scanned</h3>
+        <p>The 90th-percentile scan per query, used instead of the mean so a handful of large queries can't mask an otherwise small workload.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 style="font-size:16px">⏳ Cumulative queue time</h3>
+        <p>Signals concurrency pressure, which is fixed by scaling <em>out</em> to more clusters — not <em>up</em> to a bigger size. The advisor keeps these separate.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 style="font-size:16px">😴 Idle credit hours</h3>
+        <p>Hours that burned credits with zero queries running, pointing directly at an <code style="font-family:var(--mono);color:var(--ice)">AUTO_SUSPEND</code> that's set too high.</p>
+      </div>
+
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:28px">
+      <div class="section-label" style="margin-bottom:14px">Decision logic — no black box</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;background:var(--ice-glow);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--ice);font-weight:700">1</div>
+          <div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:3px">Size up</h4>
+            <p style="font-size:12.5px;color:var(--text-dim);line-height:1.55">Remote spill &gt; 2% of queries, or local spill &gt; 15%.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;background:var(--ice-glow);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--ice);font-weight:700">2</div>
+          <div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:3px">Size down</h4>
+            <p style="font-size:12.5px;color:var(--text-dim);line-height:1.55">p90 scan &lt; 100 MB, above Small, and spill under 1%.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;background:var(--ice-glow);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--ice);font-weight:700">3</div>
+          <div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:3px">Add clusters</h4>
+            <p style="font-size:12.5px;color:var(--text-dim);line-height:1.55">Cumulative queue time &gt; 60s — handled independently of size.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;background:var(--ice-glow);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--ice);font-weight:700">4</div>
+          <div>
+            <h4 style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:var(--white);margin-bottom:3px">Keep</h4>
+            <p style="font-size:12.5px;color:var(--text-dim);line-height:1.55">The evidence doesn't justify a change. No churn for its own sake.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:14px;color:var(--text-dim);line-height:1.7;margin-bottom:18px">
+      Every recommendation carries a <strong style="color:var(--text)">confidence level</strong> based on how many queries backed it,
+      a plain-English explanation of <em>why</em>, and an estimated credits/hour delta. The app generates
+      <code style="font-family:var(--mono);color:var(--ice)">ALTER WAREHOUSE</code> statements for you to review —
+      <strong style="color:var(--text)">it never executes them.</strong>
+    </p>
+
+    <div class="code-block">
+<span class="comment">-- Generated for you to review, never executed</span>
+<span class="comment">-- ANALYTICS_WH: size up (high confidence)</span>
+<span class="keyword">ALTER WAREHOUSE</span> <span class="string">"ANALYTICS_WH"</span> <span class="keyword">SET</span>
+    WAREHOUSE_SIZE = <span class="string">'LARGE'</span>;
+
+<span class="comment">-- REPORTING_WH: add clusters (high confidence)</span>
+<span class="keyword">ALTER WAREHOUSE</span> <span class="string">"REPORTING_WH"</span> <span class="keyword">SET</span>
+    MIN_CLUSTER_COUNT = 1,
+    MAX_CLUSTER_COUNT = 3;
+    </div>
+  </div>
+</section>
+
 <!-- PRIVACY SECTION -->
 <section id="privacy" class="privacy-section">
   <div class="section-inner">
@@ -667,7 +787,7 @@
         <div class="step-num">1</div>
         <div class="step-body">
           <h3>Download the package</h3>
-          <p>Download the ZIP from the button below. It contains two SQL scripts and two Python source files. No other dependencies.</p>
+          <p>Download the ZIP from the button below. It contains three SQL scripts and three source files covering both apps. No other dependencies.</p>
           <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener" style="display:inline-flex;font-size:14px;padding:10px 20px;margin-top:4px;">↓ &nbsp;Download SnowLens</a>
           <div class="step-tip">Requires a Snowflake account (any edition — Standard works fine). No paid tier needed.</div>
         </div>
@@ -698,16 +818,21 @@
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
-          <h3>Upload files and create the app</h3>
-          <p>In Snowsight, navigate to <strong>Data → Databases → SNOWLENS_FULL → APP → Stages → SNOWLENS_STAGE</strong> and upload <code style="font-family:var(--mono);color:var(--ice)">streamlit_app.py</code> and <code style="font-family:var(--mono);color:var(--ice)">environment.yml</code> from the <code style="font-family:var(--mono);color:var(--ice)">src/</code> folder. Then run <code style="font-family:var(--mono);color:var(--ice)">sql/02_create_app.sql</code>.</p>
+          <h3>Upload files and create both apps</h3>
+          <p>In Snowsight, navigate to <strong>Data → Databases → SNOWLENS_FULL → APP → Stages → SNOWLENS_STAGE</strong> and upload all three files from the <code style="font-family:var(--mono);color:var(--ice)">src/</code> folder: <code style="font-family:var(--mono);color:var(--ice)">streamlit_app.py</code>, <code style="font-family:var(--mono);color:var(--ice)">sizing_advisor.py</code>, and <code style="font-family:var(--mono);color:var(--ice)">environment.yml</code>. Then run <code style="font-family:var(--mono);color:var(--ice)">sql/02_create_app.sql</code>, which creates both apps.</p>
           <div class="code-block">
 <span class="comment">-- sql/02_create_app.sql (excerpt)</span>
 <span class="keyword">CREATE OR REPLACE STREAMLIT</span> SNOWLENS_APP
     ROOT_LOCATION = <span class="string">'@SNOWLENS_FULL.APP.SNOWLENS_STAGE'</span>
     MAIN_FILE     = <span class="string">'streamlit_app.py'</span>
     QUERY_WAREHOUSE = SNOWLENS_FULL_WH;
+
+<span class="keyword">CREATE OR REPLACE STREAMLIT</span> SNOWLENS_SIZING_ADVISOR
+    ROOT_LOCATION = <span class="string">'@SNOWLENS_FULL.APP.SNOWLENS_STAGE'</span>
+    MAIN_FILE     = <span class="string">'sizing_advisor.py'</span>
+    QUERY_WAREHOUSE = SNOWLENS_FULL_WH;
           </div>
-          <p style="margin-top:12px">Done. Open <strong>Projects → Streamlit → SNOWLENS_APP</strong> in Snowsight. All 9 detectors are ready.</p>
+          <p style="margin-top:12px">Done. Open <strong>Projects → Streamlit</strong> in Snowsight, where you'll find <strong>SNOWLENS_APP</strong> (9 detectors) and <strong>SNOWLENS_SIZING_ADVISOR</strong> (sizing recommendations).</p>
           <div class="step-tip">To remove SnowLens completely, run sql/99_uninstall.sql as ACCOUNTADMIN. It drops the database, warehouse, and role in seconds.</div>
         </div>
       </div>
@@ -725,7 +850,22 @@
 
       <div class="faq-item">
         <div class="faq-q">Is SnowLens really free?</div>
-        <div class="faq-a">Yes — completely free. All 9 detectors, configurable detection windows, cost attribution, warehouse scope filtering. No payment, no signup, no expiry, no feature gating.</div>
+        <div class="faq-a">Yes — completely free. Both apps, all 9 detectors, the warehouse sizing advisor, configurable detection windows, cost attribution, warehouse scope filtering. No payment, no signup, no expiry, no feature gating.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How does the Sizing Advisor decide what to recommend?</div>
+        <div class="faq-a">It reads six signals per warehouse over a 7, 30, or 90-day window: remote spill rate, local spill rate, p90 bytes scanned, cumulative queue time, peak hourly concurrency, and idle credit hours. It recommends sizing up when remote spill exceeds 2% of queries or local spill exceeds 15%; sizing down when p90 scan is under 100 MB with negligible spill and the warehouse is above Small; and adding clusters when cumulative queue time exceeds 60 seconds. Queuing is handled separately from sizing because concurrency pressure is fixed by scaling out, not up. Every threshold is documented inside the app, and every recommendation shows its reasoning and a confidence level based on how many queries backed it.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Does the Sizing Advisor change my warehouses automatically?</div>
+        <div class="faq-a">No. It generates <code style="font-family:var(--mono);color:var(--ice)">ALTER WAREHOUSE</code> statements for you to read and run yourself. Nothing is executed on your behalf. Sizing is empirical — the advisor only sees what already happened, so change one warehouse at a time and re-measure.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Why does the advisor use p90 bytes scanned instead of the average?</div>
+        <div class="faq-a">The mean is easily skewed. A warehouse running mostly small queries plus a handful of very large ones will show a high average scan, hiding the fact that it's oversized for the workload it actually handles most of the time. The 90th percentile reflects what the warehouse routinely does, which is a better basis for a sizing decision.</div>
       </div>
 
       <div class="faq-item">
@@ -740,7 +880,7 @@
 
       <div class="faq-item">
         <div class="faq-q">Will SnowLens handle a large account with 90 days of history?</div>
-        <div class="faq-a">Yes. SnowLens includes memory-safety hardening for Streamlit-in-Snowflake's ~32 MB limit: query text is truncated to 300 characters, each detector is capped to the top 200 findings by severity, cost attribution is aggregated in SQL, and you can scope detection to individual warehouses. These measures keep the app responsive even on accounts with thousands of daily queries.</div>
+        <div class="faq-a">Yes. SnowLens includes memory-safety hardening for Streamlit-in-Snowflake's ~32 MB limit: query text is truncated to 300 characters, each detector is capped to the top 200 findings by severity, cost attribution is aggregated in SQL, and you can scope detection to individual warehouses. The Sizing Advisor aggregates everything inside Snowflake and returns one compact row per warehouse, so it stays light regardless of account size. These measures keep both apps responsive even on accounts with thousands of daily queries.</div>
       </div>
 
       <div class="faq-item">
@@ -762,7 +902,7 @@
   <div class="section-inner" style="text-align:center">
     <div class="section-label" style="text-align:center">Ready to start?</div>
     <h2 class="section-title" style="max-width:560px;margin:0 auto 12px">Install in 5 minutes. Free, forever.</h2>
-    <p>Download the ZIP, run two SQL scripts in Snowsight, and you're live.<br>Your data stays inside your account — always.</p>
+    <p>Download the ZIP, run two SQL scripts in Snowsight, and both apps are live.<br>Your data stays inside your account — always.</p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <a class="btn-primary" href="https://drive.google.com/uc?export=download&id=1Wv7pAa5i_pa4hebzp6bzDhOnon1vKu7l" target="_blank" rel="noopener" style="font-size:16px;padding:15px 30px;">↓ &nbsp;Download SnowLens — Free</a>
     </div>
